@@ -8,8 +8,6 @@ const MarsImages: React.FC = () => {
 
   const { data } = GetMarsImages();
 
-  console.log(data);
-
   return (
     <section className="flex flex-col gap-4">
       <Link
@@ -18,11 +16,26 @@ const MarsImages: React.FC = () => {
       >
         Voltar
       </Link>
-      <h1 className="text-1xl sm:text-2xl font-bold">Mars Images</h1>
+      <h1 className="text-1xl sm:text-2xl font-bold">Imagens de Marte</h1>
       {data?.map((item) => (
-        <div className="flex h-5 w-full">
-          <img src={item.img_src} alt="image from camera" />
-        </div>
+        <Link
+          key={item.id}
+          to={item.camera.name}
+          className="group flex gap-4 cursor-pointer"
+        >
+          <img
+            className="w-28 sm:max-w-xs"
+            src={item.img_src}
+            alt="image from camera"
+          />
+          <div className="flex flex-col">
+            <p className="font-bold group-hover:text-blue-500 group-hover:underline">
+              Dados da câmera:
+            </p>
+            <p className="text-sm text-gray-400">{item.camera.name}</p>
+            <p className="text-sm text-gray-400">{item.camera.full_name}</p>
+          </div>
+        </Link>
       ))}
     </section>
   );

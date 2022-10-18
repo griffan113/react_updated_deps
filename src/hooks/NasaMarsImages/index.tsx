@@ -19,7 +19,7 @@ interface UseMarsImageParams {
 
 interface NasaMarsImagesContextData {
   GetMarsImages(options?: UseMarsImagesParams): UseQueryResult<IMarsImage[]>;
-  GetMarsImage(options?: UseMarsImageParams): UseQueryResult<IMarsImage>;
+  GetMarsImage(options?: UseMarsImageParams): UseQueryResult<IMarsImage[]>;
 }
 
 const NasaMarsImagesContext = createContext<NasaMarsImagesContextData>(
@@ -37,7 +37,7 @@ const fetchMarsImages = async (): Promise<IMarsImage[]> => {
     }`
   );
 
-  return data.photos;
+  return data.photos.slice(0, 24);
 };
 
 const fetchMarsImageByCamera = async (
@@ -49,7 +49,7 @@ const fetchMarsImageByCamera = async (
     }`
   );
 
-  return data.photos;
+  return data.photos.slice(0, 24);
 };
 
 const NasaMarsImagesProvider: React.FC<NasaMarsImagesProviderProps> = ({
@@ -67,7 +67,7 @@ const NasaMarsImagesProvider: React.FC<NasaMarsImagesProviderProps> = ({
 
   const GetMarsImage = (
     { options, camera_name } = {} as any
-  ): UseQueryResult<IMarsImage> => {
+  ): UseQueryResult<IMarsImage[]> => {
     return useQuery(
       ["mars_images", "image", camera_name],
       () => fetchMarsImageByCamera(camera_name),
