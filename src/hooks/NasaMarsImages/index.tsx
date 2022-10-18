@@ -31,25 +31,25 @@ type NasaMarsImagesProviderProps = {
 };
 
 const fetchMarsImages = async (): Promise<IMarsImage[]> => {
-  const { data } = await api.get<IMarsImage[]>(
+  const { data } = await api.get<{ photos: IMarsImage[] }>(
     `mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=${
       import.meta.env.VITE_NASA_API_KEY
     }`
   );
 
-  return data;
+  return data.photos;
 };
 
-const fetchMarsImage = async (camera_name: string): Promise<IMarsImage[]> => {
-  const { data } = await api.get<IMarsImage[]>(
+const fetchMarsImageByCamera = async (
+  camera_name: string
+): Promise<IMarsImage[]> => {
+  const { data } = await api.get<{ photos: IMarsImage[] }>(
     `mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=${camera_name}&api_key=${
       import.meta.env.VITE_NASA_API_KEY
     }`
   );
 
-  console.log("call ");
-
-  return data;
+  return data.photos;
 };
 
 const NasaMarsImagesProvider: React.FC<NasaMarsImagesProviderProps> = ({
@@ -70,7 +70,7 @@ const NasaMarsImagesProvider: React.FC<NasaMarsImagesProviderProps> = ({
   ): UseQueryResult<IMarsImage> => {
     return useQuery(
       ["mars_images", "image", camera_name],
-      () => fetchMarsImage(camera_name),
+      () => fetchMarsImageByCamera(camera_name),
       {
         refetchOnMount: false,
         refetchOnWindowFocus: false,
@@ -92,4 +92,9 @@ function useNasaMarsImages(): NasaMarsImagesContextData {
   return context;
 }
 
-export { NasaMarsImagesProvider, useNasaMarsImages, fetchMarsImages };
+export {
+  NasaMarsImagesProvider,
+  useNasaMarsImages,
+  fetchMarsImages,
+  fetchMarsImageByCamera,
+};
