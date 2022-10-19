@@ -24,7 +24,7 @@ const MarsImages: React.FC = () => {
           className="group flex gap-4 cursor-pointer"
         >
           <img
-            className="w-28 sm:max-w-xs"
+            className="w-28 sm:max-w-xs shadow-sm shadow-slate-700"
             src={item.img_src}
             alt="image from camera"
           />
