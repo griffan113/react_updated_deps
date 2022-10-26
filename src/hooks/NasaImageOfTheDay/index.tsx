@@ -5,7 +5,7 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 
-import { api } from "@src/lib/axios";
+import { nasaApi } from "@src/lib/axios";
 import { IImageOfTheDay } from "@src/interfaces/IImageOfTheDay";
 
 interface UseImageOfTheDayParams {
@@ -27,7 +27,7 @@ type NasaImageOfTheDayProviderProps = {
 };
 
 const fetchImageOfTheDay = async (): Promise<IImageOfTheDay> => {
-  const { data } = await api.get<IImageOfTheDay>(
+  const { data } = await nasaApi.get<IImageOfTheDay>(
     `planetary/apod?api_key=${import.meta.env.VITE_NASA_API_KEY}`
   );
 

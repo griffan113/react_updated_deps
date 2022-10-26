@@ -5,7 +5,7 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 
-import { api } from "@src/lib/axios";
+import { nasaApi } from "@src/lib/axios";
 import { IMarsImage } from "@src/interfaces/IMarsImage";
 
 interface UseMarsImagesParams {
@@ -31,7 +31,7 @@ type NasaMarsImagesProviderProps = {
 };
 
 const fetchMarsImages = async (): Promise<IMarsImage[]> => {
-  const { data } = await api.get<{ photos: IMarsImage[] }>(
+  const { data } = await nasaApi.get<{ photos: IMarsImage[] }>(
     `mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=${
       import.meta.env.VITE_NASA_API_KEY
     }`
@@ -43,7 +43,7 @@ const fetchMarsImages = async (): Promise<IMarsImage[]> => {
 const fetchMarsImageByCamera = async (
   camera_name: string
 ): Promise<IMarsImage[]> => {
-  const { data } = await api.get<{ photos: IMarsImage[] }>(
+  const { data } = await nasaApi.get<{ photos: IMarsImage[] }>(
     `mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=${camera_name}&api_key=${
       import.meta.env.VITE_NASA_API_KEY
     }`

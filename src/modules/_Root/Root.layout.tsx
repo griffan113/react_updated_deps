@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, useNavigation } from "react-router-dom";
 
 import Loader from "@src/components/Loader";
+import LinkButton from "@src/components/LinkButton";
 
 const RootLayout: React.FC = () => {
   const { state } = useNavigation();
@@ -16,8 +17,8 @@ const RootLayout: React.FC = () => {
 
       <div className="max-h-[85vh] flex-1 flex flex-col sm:flex-row sm:gap-4 gap-0">
         <aside className="flex flex-col gap-2 justify-center bg-gray-600 p-4 border-dashed border-gray-300 border">
-          <strong className="text-1xl sm:text-2xl font-bold text-teal-300">
-            Nav
+          <strong className="text-1xl sm:text-2xl font-bold">
+            <LinkButton to="companies">Empresas</LinkButton>
           </strong>
         </aside>
         <main className="flex-1 sm:py-4 p-4 bg-gray-700 border-dashed border-gray-400 border overflow-auto">
